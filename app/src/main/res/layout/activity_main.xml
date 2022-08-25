@@ -45,7 +45,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:text="@string/connect"
-                android:background="@drawable/custombutton"
+                android:backgroundTint="@color/white"
                 android:textAllCaps="false"
                 android:textColor="@color/black"/>
 
@@ -57,9 +57,9 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:text="@string/disconnect"
-                android:background="@drawable/custombutton"
+                android:backgroundTint="@color/white"
                 android:textAllCaps="false"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
@@ -70,12 +70,64 @@
         android:layout_height="0dp"
         android:overScrollMode="never"
         android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/divider"
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutBanner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/banner"
+                android:padding="20dp"
+                app:layout_constraintEnd_toEndOf="@id/layoutSport"
+                app:layout_constraintStart_toStartOf="@+id/layoutEco"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textCurrent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="2dp"
+                    android:text="Current Mode:"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="@id/textMode"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/textMode" />
+
+                <TextView
+                    android:id="@+id/textMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_background"
+                    android:paddingStart="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="2dp"
+                    android:text="@string/sport_mode"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textCurrent"/>
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_turbo"
+                    app:tint="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/layoutEco"
@@ -89,7 +141,7 @@
                 app:layout_constraintDimensionRatio="H, 1:1"
                 app:layout_constraintEnd_toStartOf="@+id/layoutSport"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" >
+                app:layout_constraintTop_toBottomOf="@+id/layoutBanner" >
                 
                 <ImageView
                     android:id="@+id/ecoView"
@@ -97,7 +149,8 @@
                     android:layout_height="100dp"
                     android:layout_margin="8dp"
                     android:padding="8dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/ic_eco"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -106,8 +159,7 @@
                     android:text="Eco"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                     />
+                    android:textStyle="bold" />
                 
             </LinearLayout>
 
@@ -123,7 +175,7 @@
                 app:layout_constraintDimensionRatio="H, 1:1"
                 app:layout_constraintStart_toEndOf="@+id/layoutEco"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" >
+                app:layout_constraintTop_toBottomOf="@id/layoutBanner" >
 
                 <ImageView
                     android:id="@+id/sportView"
@@ -131,7 +183,8 @@
                     android:layout_height="100dp"
                     android:layout_margin="8dp"
                     android:padding="8dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/ic_turbo"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -164,7 +217,8 @@
                     android:layout_height="100dp"
                     android:layout_margin="8dp"
                     android:padding="8dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/ic_default"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -181,5 +235,21 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary"
+        app:itemIconSize="30dp"
+        app:menu="@menu/navigation_menu"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:backgroundTint="@color/color_bg"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationMenu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

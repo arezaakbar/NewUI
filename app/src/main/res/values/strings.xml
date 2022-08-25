@@ -3,4 +3,7 @@
     <string name="current_bluetooth_status">Current Bluetooth Status</string>
     <string name="connect">Connect</string>
     <string name="disconnect">Disconnect</string>
+    <string name="sport_mode">SPORT MODE</string>
+    <string name="mode">Mode</string>
+    <string name="trip_history">Trip History</string>
 </resources>
