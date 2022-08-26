@@ -31,4 +31,8 @@
     <color name="secondary_light">#9fffe0</color>
     <color name="secondary_dark">#2bbd7e</color>
 
+    <color name="cream_primary">#ff8a80</color>
+    <color name="cream_primary_light">#ffbcaf</color>
+    <color name="cream_primary_dark">#c85a54</color>
+
 </resources>

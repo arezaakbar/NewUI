@@ -6,4 +6,6 @@
     <string name="sport_mode">SPORT MODE</string>
     <string name="mode">Mode</string>
     <string name="trip_history">Trip History</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
