@@ -18,6 +18,9 @@ public class TripHistory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_history);
 
+        bottomNavigationMenu = findViewById(R.id.bottomNavigationMenu);
+        bottomNavigationMenu.setSelectedItemId(R.id.menuhistory);
+
         bottomNavigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

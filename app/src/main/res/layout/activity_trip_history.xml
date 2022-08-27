@@ -78,7 +78,6 @@
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/textFuel"
                 app:layout_constraintTop_toBottomOf="@+id/textDistanceTravelled" />
 
             <TextView
@@ -99,7 +98,6 @@
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textFuel" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
