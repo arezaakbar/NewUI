@@ -85,8 +85,8 @@
                 android:layout_marginTop="22dp"
                 android:background="@drawable/banner"
                 android:padding="20dp"
-                app:layout_constraintEnd_toEndOf="@id/layoutSport"
-                app:layout_constraintStart_toStartOf="@+id/layoutEco"
+                app:layout_constraintEnd_toEndOf="@id/sportButton"
+                app:layout_constraintStart_toStartOf="@+id/ecoButton"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -131,7 +131,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
-                android:id="@+id/layoutEco"
+                android:id="@+id/ecoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
@@ -140,7 +140,7 @@
                 android:padding="15dp"
                 android:background="@drawable/eco_background"
                 app:layout_constraintDimensionRatio="H, 1:1"
-                app:layout_constraintEnd_toStartOf="@+id/layoutSport"
+                app:layout_constraintEnd_toStartOf="@+id/sportButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layoutBanner" >
 
@@ -165,7 +165,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layoutSport"
+                android:id="@+id/sportButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
@@ -174,7 +174,7 @@
                 android:padding="15dp"
                 android:background="@drawable/sport_background"
                 app:layout_constraintDimensionRatio="H, 1:1"
-                app:layout_constraintStart_toEndOf="@+id/layoutEco"
+                app:layout_constraintStart_toEndOf="@+id/ecoButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutBanner" >
 
@@ -200,7 +200,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layoutDefault"
+                android:id="@+id/defaultButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
@@ -209,8 +209,8 @@
                 android:padding="15dp"
                 android:background="@drawable/default_background"
                 app:layout_constraintDimensionRatio="H, 1:1"
-                app:layout_constraintStart_toStartOf="@+id/layoutEco"
-                app:layout_constraintTop_toBottomOf="@+id/layoutEco" >
+                app:layout_constraintStart_toStartOf="@+id/ecoButton"
+                app:layout_constraintTop_toBottomOf="@+id/ecoButton" >
 
                 <ImageView
                     android:id="@+id/defaultView"
