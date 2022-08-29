@@ -99,12 +99,12 @@
                     android:paddingBottom="2dp"
                     android:text="Current Mode:"
                     android:textColor="@color/white"
-                    app:layout_constraintStart_toStartOf="@id/textMode"
+                    app:layout_constraintStart_toStartOf="@id/displayCurrentMode"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/textMode" />
+                    app:layout_constraintBottom_toTopOf="@+id/displayCurrentMode" />
 
                 <TextView
-                    android:id="@+id/textMode"
+                    android:id="@+id/displayCurrentMode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_background"
@@ -112,7 +112,7 @@
                     android:paddingTop="2dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="2dp"
-                    android:text="@string/sport_mode"
+                    android:text="displayCurrentMode"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
@@ -132,6 +132,7 @@
 
             <LinearLayout
                 android:id="@+id/ecoButton"
+                android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
@@ -166,6 +167,7 @@
 
             <LinearLayout
                 android:id="@+id/sportButton"
+                android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
@@ -201,6 +203,7 @@
 
             <LinearLayout
                 android:id="@+id/defaultButton"
+                android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"

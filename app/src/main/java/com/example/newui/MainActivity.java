@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         final TextView displayCurrentMode = findViewById(R.id.displayCurrentMode);
         Button connectButton = findViewById(R.id.connectButton);
         Button disconnectButton = findViewById(R.id.disconnectButton);
-        ImageButton ecoButton = findViewById(R.id.ecoButton);
-        ImageButton sportyButton = findViewById(R.id.sportyButton);
-        ImageButton defaultButton = findViewById(R.id.defaultButton);
+        LinearLayout ecoButton = (LinearLayout) findViewById (R.id.ecoButton);
+        LinearLayout sportButton = (LinearLayout) findViewById(R.id.sportButton);
+        LinearLayout defaultButton = (LinearLayout) findViewById(R.id.defaultButton);
 
 
         //Instansiasi Bottom Navbar
@@ -136,17 +137,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String androidCmd = "w";
                 connectedThread.write(androidCmd);
-                displayCurrentMode.setText("ECO MODE TERPILIH");
+                displayCurrentMode.setText("ECO MODE");
             }
         });
 
         //Sporty Button
-        sportyButton.setOnClickListener(new View.OnClickListener() {
+        sportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String androidCmd = "s";
                 connectedThread.write(androidCmd);
-                displayCurrentMode.setText("SPORTY MODE TERPILIH");
+                displayCurrentMode.setText("SPORTY MODE");
             }
         });
 
@@ -156,19 +157,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String androidCmd = "d";
                 connectedThread.write(androidCmd);
-                displayCurrentMode.setText("SPORTY MODE TERPILIH");
+                displayCurrentMode.setText("SPORTY MODE");
             }
         });
         ecoButton.setOnClickListener(v -> {
             //log ecoButton
             Log.i("Eco Button State", "Eco Mode Terpilih");
-
         });
 
-        //Function sportyButton
-        sportyButton.setOnClickListener(v -> {
-            //log sportyButton
-            Log.i("Sporty Button State", "Sporty Mode terpilih");
+        //Function sportButton
+        sportButton.setOnClickListener(v -> {
+            //log sportButton
+            Log.i("Sporty Button State", "Sporty Mode Terpilih");
+        });
+
+        //Function sportButton
+        defaultButton.setOnClickListener(v -> {
+            //log sportButton
+            Log.i("Default Button State", "Default Mode Terpilih");
         });
     }
 
