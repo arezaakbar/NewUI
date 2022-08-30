@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String androidCmd = "w";
                 connectedThread.write(androidCmd);
-                displayCurrentMode.setText("ECO MODE");
+//                displayCurrentMode.setText("ECO MODE");
             }
         });
 
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String androidCmd = "s";
                 connectedThread.write(androidCmd);
-                displayCurrentMode.setText("SPORTY MODE");
+//              displayCurrentMode.setText("SPORTY MODE");
             }
         });
 
@@ -157,25 +157,25 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String androidCmd = "d";
                 connectedThread.write(androidCmd);
-                displayCurrentMode.setText("SPORTY MODE");
+//                displayCurrentMode.setText("SPORTY MODE");
             }
         });
-        ecoButton.setOnClickListener(v -> {
-            //log ecoButton
-            Log.i("Eco Button State", "Eco Mode Terpilih");
-        });
-
-        //Function sportButton
-        sportButton.setOnClickListener(v -> {
-            //log sportButton
-            Log.i("Sporty Button State", "Sporty Mode Terpilih");
-        });
-
-        //Function sportButton
-        defaultButton.setOnClickListener(v -> {
-            //log sportButton
-            Log.i("Default Button State", "Default Mode Terpilih");
-        });
+//        ecoButton.setOnClickListener(v -> {
+//            //log ecoButton
+//            Log.i("Eco Button State", "Eco Mode Terpilih");
+//        });
+//
+//        //Function sportButton
+//        sportButton.setOnClickListener(v -> {
+//            //log sportButton
+//            Log.i("Sporty Button State", "Sporty Mode Terpilih");
+//        });
+//
+//        //Function sportButton
+//        defaultButton.setOnClickListener(v -> {
+//            //log sportButton
+//            Log.i("Default Button State", "Default Mode Terpilih");
+//        });
     }
 
     //Establishing Bluetooth Connection Thread
