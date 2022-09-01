@@ -57,7 +57,6 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         });
     }
 
-
     public int getItemCount(){
         int dataCount = deviceList.size();
         return dataCount;

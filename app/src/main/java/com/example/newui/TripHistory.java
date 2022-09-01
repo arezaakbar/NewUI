@@ -2,6 +2,9 @@ package com.example.newui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +12,15 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class TripHistory extends AppCompatActivity {
+private ArrayList<Trip> TripList;
+private RecyclerView recyclerView;
 
     BottomNavigationView bottomNavigationMenu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +29,13 @@ public class TripHistory extends AppCompatActivity {
 
         bottomNavigationMenu = findViewById(R.id.bottomNavigationMenu);
         bottomNavigationMenu.setSelectedItemId(R.id.menuhistory);
+        recyclerView = findViewById(R.id.tripRecycler);
+
+        TripList = new ArrayList<>();
+        
+        setUserInfo();
+        setAdapter();
+
 
         bottomNavigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -37,5 +53,19 @@ public class TripHistory extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void setAdapter() {
+        TripAdapter adapter = new TripAdapter(TripList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void setUserInfo() {
+        TripList.add(new Trip("Trip 1"));
+        TripList.add(new Trip("Trip 2"));
+        TripList.add(new Trip("Trip 3"));
     }
 }
