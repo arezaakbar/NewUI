@@ -111,6 +111,7 @@
         android:layout_height="0dp"
         android:overScrollMode="never"
         android:scrollbars="none"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toTopOf="@id/divider"
         app:layout_constraintTop_toBottomOf="@id/lastBanner"
         android:background="@drawable/white_bg_upper_corner">
@@ -120,8 +121,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp"
+            android:paddingBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 

@@ -67,5 +67,7 @@ private RecyclerView recyclerView;
         TripList.add(new Trip("Trip 1"));
         TripList.add(new Trip("Trip 2"));
         TripList.add(new Trip("Trip 3"));
+        TripList.add(new Trip("Trip 4"));
+        TripList.add(new Trip("Trip 5"));
     }
 }
