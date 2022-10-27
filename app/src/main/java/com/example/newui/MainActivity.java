@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         final TextView displayCurrentMode = findViewById(R.id.displayCurrentMode);
         Button connectButton = findViewById(R.id.connectButton);
         Button disconnectButton = findViewById(R.id.disconnectButton);
-        LinearLayout ecoButton = (LinearLayout) findViewById (R.id.ecoButton);
-        LinearLayout sportButton = (LinearLayout) findViewById(R.id.sportButton);
-        LinearLayout defaultButton = (LinearLayout) findViewById(R.id.defaultButton);
+        LinearLayout ecoButton = findViewById (R.id.ecoButton);
+        LinearLayout sportButton = findViewById(R.id.sportButton);
+        LinearLayout defaultButton = findViewById(R.id.defaultButton);
 
 
         //Instansiasi Bottom Navbar
@@ -132,33 +132,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Eco Button
-        ecoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String androidCmd = "w";
-                connectedThread.write(androidCmd);
-//                displayCurrentMode.setText("ECO MODE");
-            }
+        ecoButton.setOnClickListener(view -> {
+            String androidCmd = "w";
+            connectedThread.write(androidCmd);
+            /* displayCurrentMode.setText("ECO MODE"); */
         });
 
         //Sporty Button
-        sportButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String androidCmd = "s";
-                connectedThread.write(androidCmd);
-//              displayCurrentMode.setText("SPORTY MODE");
-            }
+        sportButton.setOnClickListener(view -> {
+            String androidCmd = "s";
+            connectedThread.write(androidCmd);
+            /* displayCurrentMode.setText("SPORTY MODE"); */
         });
 
         //Default Button
-        defaultButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String androidCmd = "d";
-                connectedThread.write(androidCmd);
-//                displayCurrentMode.setText("SPORTY MODE");
-            }
+        defaultButton.setOnClickListener(view -> {
+            String androidCmd = "d";
+            connectedThread.write(androidCmd);
+            /* displayCurrentMode.setText("SPORTY MODE"); */
         });
 //        ecoButton.setOnClickListener(v -> {
 //            //log ecoButton

@@ -16,7 +16,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TripHistory extends AppCompatActivity {
-private ArrayList<Trip> TripList;
+private ArrayList<Trip> tripList;
 private RecyclerView recyclerView;
 
     BottomNavigationView bottomNavigationMenu;
@@ -31,7 +31,7 @@ private RecyclerView recyclerView;
         bottomNavigationMenu.setSelectedItemId(R.id.menuhistory);
         recyclerView = findViewById(R.id.tripRecycler);
 
-        TripList = new ArrayList<>();
+        tripList = new ArrayList<>();
         
         setUserInfo();
         setAdapter();
@@ -56,7 +56,7 @@ private RecyclerView recyclerView;
     }
 
     private void setAdapter() {
-        TripAdapter adapter = new TripAdapter(TripList);
+        TripAdapter adapter = new TripAdapter(tripList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -64,10 +64,10 @@ private RecyclerView recyclerView;
     }
 
     private void setUserInfo() {
-        TripList.add(new Trip("Trip 1"));
-        TripList.add(new Trip("Trip 2"));
-        TripList.add(new Trip("Trip 3"));
-        TripList.add(new Trip("Trip 4"));
-        TripList.add(new Trip("Trip 5"));
+        tripList.add(new Trip("Trip 1"));
+        tripList.add(new Trip("Trip 2"));
+        tripList.add(new Trip("Trip 3"));
+        tripList.add(new Trip("Trip 4"));
+        tripList.add(new Trip("Trip 5"));
     }
 }
