@@ -207,7 +207,6 @@
                 android:layout_height="60dp"
                 android:src="@drawable/ic_fuel"
                 app:tint="@color/color_thr"
-                android:background=""
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
