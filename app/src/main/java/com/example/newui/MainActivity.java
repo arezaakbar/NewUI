@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationMenu;
 
+    //Instansiasi data dari arduino
+    static final String EXTRA_DATA_LVL = "extra_data_lvl";
+    static final String EXTRA_DATA_FUEL = "extra_data_fuel";
+    private static int lvl = 0;
+    private static float fuel = 0f;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView displayCurrentMode = findViewById(R.id.displayCurrentMode);
         Button connectButton = findViewById(R.id.connectButton);
         Button disconnectButton = findViewById(R.id.disconnectButton);
-        LinearLayout ecoButton = findViewById (R.id.ecoButton);
+        LinearLayout ecoButton = findViewById(R.id.ecoButton);
         LinearLayout sportButton = findViewById(R.id.sportButton);
         LinearLayout defaultButton = findViewById(R.id.defaultButton);
 
@@ -62,12 +68,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.menumode:
                         return true;
                     case R.id.menuhistory:
-                        startActivity(new Intent(getApplicationContext(),TripHistory.class));
-                        overridePendingTransition(0,0);
+                        Intent intent = new Intent(new Intent(getApplicationContext(), TripHistory.class));
+                        intent.putExtra(MainActivity.EXTRA_DATA_LVL,lvl);
+                        intent.putExtra(MainActivity.EXTRA_DATA_FUEL,fuel);
+                        startActivity(intent);
+                        overridePendingTransition(0, 0);
                         return true;
                 }
 
@@ -79,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent( MainActivity.this, SelectDeviceActivity.class);
+                Intent intent = new Intent(MainActivity.this, SelectDeviceActivity.class);
                 startActivity(intent);
             }
         });
@@ -87,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         //Get informasi Device Address
         deviceAddress = getIntent().getStringExtra("deviceAddress");
         //Ketika Device Address telah ditemukan
-        if (deviceAddress != null){
+        if (deviceAddress != null) {
             textBluetoothStatus.setText("Connecting");
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             createConnectThread = new CreateConnectThread(bluetoothAdapter, deviceAddress);
@@ -95,13 +104,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Handler
-        handler = new Handler(Looper.getMainLooper()){
+        handler = new Handler(Looper.getMainLooper()) {
 
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case CONNECTION_STATUS:
-                        switch (msg.arg1){
+                        switch (msg.arg1) {
                             case 1:
                                 textBluetoothStatus.setText("Bluetooth Connected");
                                 break;
@@ -113,8 +122,10 @@ public class MainActivity extends AppCompatActivity {
 
                     //apabila message berisi data dari Arduino
                     case READ_MESSAGE:
-                        String statusText = msg.obj.toString().replace("/n","");
+                        String statusText = msg.obj.toString().replace("/n", "");
                         displayCurrentMode.setText(statusText);
+
+                        //lvl = msg.obj.  <------- lvl assign variable
                         break;
                 }
             }
@@ -124,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         disconnectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (createConnectThread != null){
+                if (createConnectThread != null) {
                     createConnectThread.cancel();
                     textBluetoothStatus.setText("Bluetooth Disconnected");
                 }
@@ -172,29 +183,30 @@ public class MainActivity extends AppCompatActivity {
     //Establishing Bluetooth Connection Thread
     public static class CreateConnectThread<connectedThread> extends Thread {
 
-        public CreateConnectThread(BluetoothAdapter bluetoothAdapter, String address){
+        public CreateConnectThread(BluetoothAdapter bluetoothAdapter, String address) {
             BluetoothDevice bluetoothDevice = bluetoothAdapter.getRemoteDevice(address);
-            BluetoothSocket tmp=null;
+            BluetoothSocket tmp = null;
             UUID uuid = bluetoothDevice.getUuids()[0].getUuid();
             try {
                 tmp = bluetoothDevice.createInsecureRfcommSocketToServiceRecord(uuid);
-            } catch (IOException e){
-                Log.e("Error Message",e.toString());
+            } catch (IOException e) {
+                Log.e("Error Message", e.toString());
             }
             mmSocket = tmp;
         }
 
-        public void run(){
+        public void run() {
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             bluetoothAdapter.cancelDiscovery();
             try {
                 mmSocket.connect();
                 handler.obtainMessage(CONNECTION_STATUS, 1, -1).sendToTarget();
-            } catch (IOException connectException){
+            } catch (IOException connectException) {
                 try {
                     mmSocket.close();
-                    handler.obtainMessage(CONNECTION_STATUS, -1,-1).sendToTarget();
-                } catch (IOException closeException){}
+                    handler.obtainMessage(CONNECTION_STATUS, -1, -1).sendToTarget();
+                } catch (IOException closeException) {
+                }
                 return;
             }
 
@@ -203,10 +215,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        public void cancel(){
+        public void cancel() {
             try {
                 mmSocket.close();
-            } catch (IOException e){}
+            } catch (IOException e) {
+            }
         }
     }
 
@@ -216,28 +229,29 @@ public class MainActivity extends AppCompatActivity {
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
 
-        public ConnectedThread(BluetoothSocket socket){
+        public ConnectedThread(BluetoothSocket socket) {
             mmSocket = socket;
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
-            try{
+            try {
                 tmpIn = socket.getInputStream();
                 tmpOut = socket.getOutputStream();
-            } catch (IOException e){}
+            } catch (IOException e) {
+            }
             mmInStream = tmpIn;
             mmOutStream = tmpOut;
         }
 
-        public void run(){
+        public void run() {
             byte[] buffer = new byte[1024];
             int bytes = 0;
-            while (true){
+            while (true) {
                 try {
                     buffer[bytes] = (byte) mmInStream.read();
                     String arduinoMsg = null;
-                    if (buffer[bytes] == '\n'){
+                    if (buffer[bytes] == '\n') {
                         arduinoMsg = new String(buffer, 0, bytes);
-                        handler.obtainMessage(READ_MESSAGE,arduinoMsg).sendToTarget();
+                        handler.obtainMessage(READ_MESSAGE, arduinoMsg).sendToTarget();
                         bytes = 0;
                     } else {
                         bytes++;
@@ -248,11 +262,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        public void write(String input){
+        public void write(String input) {
             byte[] bytes = input.getBytes();
             try {
                 mmOutStream.write(bytes);
-            } catch (IOException e){}
+            } catch (IOException e) {
+            }
         }
     }
 }

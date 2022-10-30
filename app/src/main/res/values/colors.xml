@@ -11,12 +11,13 @@
     <color name="grey">#2A363B</color>
     <color name="grey2">#C7C7CC</color>
     <color name="grey3">#AEAEB2</color>
+    <color name="grey_text">#5c5b66</color>
 
     <color name="color1">#F5EDDC</color>
     <color name="color2">#CFD2CF</color>
     <color name="color3">#A2B5BB</color>
     <color name="color4">#EB1D36</color>
-    <color name="color_bg">#d1d1d1</color>
+    <color name="color_bg">#f5f6f8</color>
 
     <color name="color_prim">#FF5844</color>
     <color name="color_sec">#A6F3D2</color>
@@ -34,5 +35,9 @@
     <color name="cream_primary">#ff8a80</color>
     <color name="cream_primary_light">#ffbcaf</color>
     <color name="cream_primary_dark">#c85a54</color>
+
+    <color name="logo_red">#fc6b6c</color>
+    <color name="logo_blue">#4c9df1</color>
+    <color name="logo_orange">#f6ad46</color>
 
 </resources>
