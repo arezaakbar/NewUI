@@ -38,9 +38,13 @@ private RecyclerView recyclerView;
 
         bottomNavigationMenu = findViewById(R.id.bottomNavigationMenu);
         bottomNavigationMenu.setSelectedItemId(R.id.menuhistory);
-        final TextView displayRpm = findViewById(R.id.textRpmValue);
+
         final TextView displayFuel = findViewById(R.id.textFuelValue);
         final TextView displayAdc = findViewById(R.id.textAdcVal);
+        final TextView displayAfr = findViewById(R.id.textAfrValue);
+        final TextView displayVolt = findViewById(R.id.textVoltVal);
+        final TextView displayRpm = findViewById(R.id.textRpmValue);
+        final TextView displayFreq = findViewById(R.id.textFreqVal);
         // recyclerView = findViewById(R.id.tripRecycler);
 
 //        tripList = new ArrayList<>();
@@ -50,23 +54,40 @@ private RecyclerView recyclerView;
 
         int lvl = getIntent().getIntExtra(MainActivity.EXTRA_DATA_LVL,0);
         float fuel = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_FUEL, 0f);
+        float afr = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_AFR, 0f);
+        float volt = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_VOLT, 0f);
+        int rpm = getIntent().getIntExtra(MainActivity.EXTRA_DATA_RPM,0);
+        float freq = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_FREQ, 0f);
 
         displayAdc.setText(Integer.toString(lvl));
         displayFuel.setText(Float.toString(fuel));
+        displayAfr.setText(Float.toString(afr));
+        displayVolt.setText(Float.toString(volt));
+        displayRpm.setText(Integer.toString(rpm));
+        displayFreq.setText(Float.toString(freq));
 
         handler = new Handler(Looper.getMainLooper()){
 
             @Override
             public void handleMessage(Message msg) {
 
-                String statusRpm = msg.obj.toString().replace("/n","");
-                displayRpm.setText(statusRpm);
-
                 String statusFuel = msg.obj.toString().replace("/n","");
                 displayFuel.setText(statusFuel);
 
                 String statusAdc = msg.obj.toString().replace("/n","");
                 displayAdc.setText(statusAdc);
+
+                String statusAfr = msg.obj.toString().replace("/n","");
+                displayAfr.setText(statusAfr);
+
+                String statusVolt = msg.obj.toString().replace("/n","");
+                displayVolt.setText(statusVolt);
+
+                String statusRpm = msg.obj.toString().replace("/n","");
+                displayRpm.setText(statusRpm);
+
+                String statusFreq = msg.obj.toString().replace("/n","");
+                displayFreq.setText(statusFreq);
                 }
             };
 

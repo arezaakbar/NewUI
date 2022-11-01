@@ -11,4 +11,12 @@
     <string name="current_rpm">Current RPM:</string>
     <string name="current_fuel">Current Fuel:</string>
     <string name="adc">ADC:</string>
+    <string name="current_mode">Current Mode:</string>
+    <string name="displaycurrentmode">displayCurrentMode</string>
+    <string name="afr">AFR</string>
+    <string name="n_a">N/A</string>
+    <string name="volt">Volt</string>
+    <string name="fuel">Fuel:</string>
+    <string name="rpm">RPM</string>
+    <string name="freq">Freq</string>
 </resources>

@@ -41,8 +41,17 @@ public class MainActivity extends AppCompatActivity {
     //Instansiasi data dari arduino
     static final String EXTRA_DATA_LVL = "extra_data_lvl";
     static final String EXTRA_DATA_FUEL = "extra_data_fuel";
+    static final String EXTRA_DATA_AFR = "extra_data_afr";
+    static final String EXTRA_DATA_VOLT = "extra_data_volt";
+    static final String EXTRA_DATA_RPM = "extra_data_rpm";
+    static final String EXTRA_DATA_FREQ = "extra_data_freq";
     private static int lvl = 0;
     private static float fuel = 0f;
+    private static float afr = 0f;
+    private static float volt = 0f;
+    private static int rpm = 0;
+    private static float freq = 0f;
+
 
 
     @Override
@@ -75,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(new Intent(getApplicationContext(), TripHistory.class));
                         intent.putExtra(MainActivity.EXTRA_DATA_LVL,lvl);
                         intent.putExtra(MainActivity.EXTRA_DATA_FUEL,fuel);
+                        intent.putExtra(MainActivity.EXTRA_DATA_AFR,afr);
+                        intent.putExtra(MainActivity.EXTRA_DATA_VOLT,volt);
+                        intent.putExtra(MainActivity.EXTRA_DATA_RPM,rpm);
+                        intent.putExtra(MainActivity.EXTRA_DATA_FREQ,freq);
+
                         startActivity(intent);
                         overridePendingTransition(0, 0);
                         return true;
@@ -125,7 +139,12 @@ public class MainActivity extends AppCompatActivity {
                         String statusText = msg.obj.toString().replace("/n", "");
                         displayCurrentMode.setText(statusText);
 
-                        //lvl = msg.obj.  <------- lvl assign variable
+                        lvl = Integer.parseInt(msg.obj.toString());
+                        fuel = Float.parseFloat(msg.obj.toString());
+                        afr = Float.parseFloat(msg.obj.toString());
+                        volt = Float.parseFloat(msg.obj.toString());
+                        rpm = Integer.parseInt(msg.obj.toString());
+                        freq= Float.parseFloat(msg.obj.toString());
                         break;
                 }
             }
