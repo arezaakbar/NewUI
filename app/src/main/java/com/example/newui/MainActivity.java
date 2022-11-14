@@ -1,5 +1,6 @@
 package com.example.newui;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,11 +47,12 @@ public class MainActivity extends AppCompatActivity {
     static final String EXTRA_DATA_VOLT = "extra_data_volt";
     static final String EXTRA_DATA_RPM = "extra_data_rpm";
     static final String EXTRA_DATA_FREQ = "extra_data_freq";
-    private static int lvl = 0;
+    
+    private static float lvl = 0;
     private static float fuel = 0f;
     private static float afr = 0f;
     private static float volt = 0f;
-    private static int rpm = 0;
+    private static float rpm = 0;
     private static float freq = 0f;
 
 
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.menumode:
                         return true;
                     case R.id.menuhistory:
-                        Intent intent = new Intent(new Intent(getApplicationContext(), TripHistory.class));
+                        Intent intent = new Intent(new Intent(getApplicationContext(), Telemetry.class));
                         intent.putExtra(MainActivity.EXTRA_DATA_LVL,lvl);
                         intent.putExtra(MainActivity.EXTRA_DATA_FUEL,fuel);
                         intent.putExtra(MainActivity.EXTRA_DATA_AFR,afr);
@@ -136,15 +139,22 @@ public class MainActivity extends AppCompatActivity {
 
                     //apabila message berisi data dari Arduino
                     case READ_MESSAGE:
-                        String statusText = msg.obj.toString().replace("/n", "");
-                        displayCurrentMode.setText(statusText);
+                        String statusText = msg.obj.toString();
+                        String[] parts = statusText.split(Pattern.quote("-"));
 
-                        lvl = Integer.parseInt(msg.obj.toString());
-                        fuel = Float.parseFloat(msg.obj.toString());
-                        afr = Float.parseFloat(msg.obj.toString());
-                        volt = Float.parseFloat(msg.obj.toString());
-                        rpm = Integer.parseInt(msg.obj.toString());
-                        freq= Float.parseFloat(msg.obj.toString());
+                        String part1 = parts[0];
+                        String part2 = parts[1];
+                        String part3 = parts[2];
+                        String part4 = parts[3];
+                        String part5 = parts[4];
+                        String part6 = parts[5];
+
+                        lvl = Float.parseFloat(part1);
+                        fuel = Float.parseFloat(part2);
+                        afr = Float.parseFloat(part3);
+                        volt = Float.parseFloat(part4);
+                        rpm = Float.parseFloat(part5);
+                        freq= Float.parseFloat(part6);
                         break;
                 }
             }
@@ -165,21 +175,21 @@ public class MainActivity extends AppCompatActivity {
         ecoButton.setOnClickListener(view -> {
             String androidCmd = "w";
             connectedThread.write(androidCmd);
-            /* displayCurrentMode.setText("ECO MODE"); */
+            displayCurrentMode.setText("ECO MODE");
         });
 
         //Sporty Button
         sportButton.setOnClickListener(view -> {
             String androidCmd = "s";
             connectedThread.write(androidCmd);
-            /* displayCurrentMode.setText("SPORTY MODE"); */
+            displayCurrentMode.setText("SPORTY MODE");
         });
 
         //Default Button
         defaultButton.setOnClickListener(view -> {
             String androidCmd = "d";
             connectedThread.write(androidCmd);
-            /* displayCurrentMode.setText("SPORTY MODE"); */
+            displayCurrentMode.setText("SPORTY MODE");
         });
 //        ecoButton.setOnClickListener(v -> {
 //            //log ecoButton
@@ -202,10 +212,11 @@ public class MainActivity extends AppCompatActivity {
     //Establishing Bluetooth Connection Thread
     public static class CreateConnectThread<connectedThread> extends Thread {
 
+        @SuppressLint("MissingPermission")
         public CreateConnectThread(BluetoothAdapter bluetoothAdapter, String address) {
             BluetoothDevice bluetoothDevice = bluetoothAdapter.getRemoteDevice(address);
             BluetoothSocket tmp = null;
-            UUID uuid = bluetoothDevice.getUuids()[0].getUuid();
+            @SuppressLint("MissingPermission") UUID uuid = bluetoothDevice.getUuids()[0].getUuid();
             try {
                 tmp = bluetoothDevice.createInsecureRfcommSocketToServiceRecord(uuid);
             } catch (IOException e) {
@@ -214,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
             mmSocket = tmp;
         }
 
+        @SuppressLint("MissingPermission")
         public void run() {
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             bluetoothAdapter.cancelDiscovery();

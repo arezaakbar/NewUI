@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TripHistory"
+    tools:context=".Telemetry"
     android:background="@drawable/white_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,35 +86,6 @@
                 app:layout_constraintEnd_toEndOf="@id/textAfr"
                 app:layout_constraintTop_toBottomOf="@id/textAfr"/>
 
-            <TextView
-                android:id="@+id/textVolt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:paddingTop="2dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="2dp"
-                android:text="@string/volt"
-                android:textColor="@color/grey_text"
-                app:layout_constraintStart_toEndOf="@id/textAfr"
-                app:layout_constraintEnd_toStartOf="@+id/afrLogo"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/textAfrValue" />
-
-            <TextView
-                android:id="@+id/textVoltVal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:paddingTop="2dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="2dp"
-                android:text="N/A"
-                android:textStyle="bold"
-                android:textColor="@color/grey_text"
-                app:layout_constraintStart_toStartOf="@id/textVolt"
-                app:layout_constraintEnd_toEndOf="@id/textVolt"
-                app:layout_constraintTop_toBottomOf="@id/textVolt"/>
 
             <ImageView
                 android:id="@+id/afrLogo"

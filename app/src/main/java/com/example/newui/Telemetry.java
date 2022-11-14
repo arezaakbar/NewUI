@@ -2,11 +2,8 @@ package com.example.newui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,14 +14,9 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class TripHistory extends AppCompatActivity {
+public class Telemetry extends AppCompatActivity {
 private ArrayList<Trip> tripList;
 private RecyclerView recyclerView;
 
@@ -40,9 +32,9 @@ private RecyclerView recyclerView;
         bottomNavigationMenu.setSelectedItemId(R.id.menuhistory);
 
         final TextView displayFuel = findViewById(R.id.textFuelValue);
-        final TextView displayAdc = findViewById(R.id.textAdcVal);
+        final TextView displayLvl = findViewById(R.id.textAdcVal);
         final TextView displayAfr = findViewById(R.id.textAfrValue);
-        final TextView displayVolt = findViewById(R.id.textVoltVal);
+//        final TextView displayVolt = findViewById(R.id.textVoltVal);
         final TextView displayRpm = findViewById(R.id.textRpmValue);
         final TextView displayFreq = findViewById(R.id.textFreqVal);
         // recyclerView = findViewById(R.id.tripRecycler);
@@ -52,18 +44,17 @@ private RecyclerView recyclerView;
 //        setUserInfo();
 //        setAdapter();
 
-        int lvl = getIntent().getIntExtra(MainActivity.EXTRA_DATA_LVL,0);
+        float lvl = getIntent().getIntExtra(MainActivity.EXTRA_DATA_LVL,0);
         float fuel = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_FUEL, 0f);
         float afr = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_AFR, 0f);
         float volt = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_VOLT, 0f);
-        int rpm = getIntent().getIntExtra(MainActivity.EXTRA_DATA_RPM,0);
+        float rpm = getIntent().getIntExtra(MainActivity.EXTRA_DATA_RPM,0);
         float freq = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_FREQ, 0f);
 
-        displayAdc.setText(Integer.toString(lvl));
+        displayLvl.setText(Float.toString(lvl));
         displayFuel.setText(Float.toString(fuel));
-        displayAfr.setText(Float.toString(afr));
-        displayVolt.setText(Float.toString(volt));
-        displayRpm.setText(Integer.toString(rpm));
+//        displayAfr.setText(Float.toString(afr));displayVolt.setText(Float.toString(volt));
+        displayRpm.setText(Float.toString(rpm));
         displayFreq.setText(Float.toString(freq));
 
         handler = new Handler(Looper.getMainLooper()){
@@ -75,13 +66,13 @@ private RecyclerView recyclerView;
                 displayFuel.setText(statusFuel);
 
                 String statusAdc = msg.obj.toString().replace("/n","");
-                displayAdc.setText(statusAdc);
+                displayLvl.setText(statusAdc);
 
                 String statusAfr = msg.obj.toString().replace("/n","");
                 displayAfr.setText(statusAfr);
 
-                String statusVolt = msg.obj.toString().replace("/n","");
-                displayVolt.setText(statusVolt);
+//                String statusVolt = msg.obj.toString().replace("/n","");
+//                displayVolt.setText(statusVolt);
 
                 String statusRpm = msg.obj.toString().replace("/n","");
                 displayRpm.setText(statusRpm);
