@@ -17,8 +17,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 
 public class Telemetry extends AppCompatActivity {
-private ArrayList<Trip> tripList;
-private RecyclerView recyclerView;
+//private ArrayList<Trip> tripList;
+//private RecyclerView recyclerView;
 
     BottomNavigationView bottomNavigationMenu;
     public static Handler handler;
@@ -44,16 +44,17 @@ private RecyclerView recyclerView;
 //        setUserInfo();
 //        setAdapter();
 
-        float lvl = getIntent().getIntExtra(MainActivity.EXTRA_DATA_LVL,0);
+        float lvl = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_LVL,0f);
         float fuel = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_FUEL, 0f);
         float afr = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_AFR, 0f);
         float volt = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_VOLT, 0f);
-        float rpm = getIntent().getIntExtra(MainActivity.EXTRA_DATA_RPM,0);
+        float rpm = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_RPM,0f);
         float freq = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_FREQ, 0f);
 
         displayLvl.setText(Float.toString(lvl));
         displayFuel.setText(Float.toString(fuel));
-//        displayAfr.setText(Float.toString(afr));displayVolt.setText(Float.toString(volt));
+        displayAfr.setText(Float.toString(afr));
+//        displayVolt.setText(Float.toString(volt));
         displayRpm.setText(Float.toString(rpm));
         displayFreq.setText(Float.toString(freq));
 
@@ -128,25 +129,6 @@ private RecyclerView recyclerView;
 //        tripList.add(new Trip("Trip 3"));
 //        tripList.add(new Trip("Trip 4"));
 //        tripList.add(new Trip("Trip 5"));
-//    }
-
-//    public static class ConnectedThread extends Thread {
-//        private final BluetoothSocket mmSocket;
-//        private final InputStream mmInStream;
-//        private final OutputStream mmOutStream;
-//
-//        public ConnectedThread(BluetoothSocket socket) {
-//            mmSocket = socket;
-//            InputStream tmpIn = null;
-//            OutputStream tmpOut = null;
-//            try {
-//                tmpIn = socket.getInputStream();
-//                tmpOut = socket.getOutputStream();
-//            } catch (IOException e) {
-//            }
-//            mmInStream = tmpIn;
-//            mmOutStream = tmpOut;
-//        }
 //    }
 }
 

@@ -48,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
     static final String EXTRA_DATA_RPM = "extra_data_rpm";
     static final String EXTRA_DATA_FREQ = "extra_data_freq";
     
-    private static float lvl = 0;
+    private static float lvl = 0f;
     private static float fuel = 0f;
     private static float afr = 0f;
     private static float volt = 0f;
-    private static float rpm = 0;
+    private static float rpm = 0f;
     private static float freq = 0f;
 
 
@@ -155,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
                         volt = Float.parseFloat(part4);
                         rpm = Float.parseFloat(part5);
                         freq= Float.parseFloat(part6);
+
+                        Log.i("string", statusText);
                         break;
                 }
             }
