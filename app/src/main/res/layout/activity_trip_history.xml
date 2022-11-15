@@ -61,6 +61,7 @@
                 android:id="@+id/textAfr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="16dp"
                 android:paddingStart="8dp"
                 android:paddingTop="2dp"
                 android:paddingEnd="8dp"
@@ -69,16 +70,16 @@
                 android:textColor="@color/grey_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/textAfrValue" />
+                app:layout_constraintBottom_toTopOf="@id/textAfrValue"/>
 
             <TextView
                 android:id="@+id/textAfrValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="8dp"
-                android:paddingTop="2dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="2dp"
+                android:textSize="24dp"
                 android:text="N/A"
                 android:textStyle="bold"
                 android:textColor="@color/grey_text"
@@ -121,6 +122,7 @@
                 android:paddingTop="2dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="2dp"
+                android:textSize="16dp"
                 android:text="@string/fuel"
                 android:textColor="@color/grey_text"
                 app:layout_constraintStart_toStartOf="parent"
@@ -132,9 +134,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="8dp"
-                android:paddingTop="2dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="2dp"
+                android:textSize="24dp"
                 android:text="N/A"
                 android:textStyle="bold"
                 android:textColor="@color/grey_text"
@@ -150,6 +152,7 @@
                 android:paddingTop="2dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="2dp"
+                android:textSize="16dp"
                 android:text="@string/adc"
                 android:textColor="@color/grey_text"
                 app:layout_constraintStart_toEndOf="@id/textFuel"
@@ -162,9 +165,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="8dp"
-                android:paddingTop="2dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="2dp"
+                android:textSize="24dp"
                 android:text="N/A"
                 android:textStyle="bold"
                 android:textColor="@color/grey_text"
@@ -189,11 +192,11 @@
             android:id="@+id/layoutRpm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="22dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/banner_white"
             android:padding="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutFuel">
@@ -208,24 +211,25 @@
                 android:paddingBottom="2dp"
                 android:text="@string/rpm"
                 android:textColor="@color/grey_text"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toTopOf="@id/textRpmValue"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/textRpmValue" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textRpmValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="8dp"
-                android:paddingTop="2dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="2dp"
                 android:text="N/A"
-                android:textStyle="bold"
                 android:textColor="@color/grey_text"
-                app:layout_constraintStart_toStartOf="@id/textRpm"
+                android:textSize="24dp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/textRpm"
-                app:layout_constraintTop_toBottomOf="@id/textRpm"/>
+                app:layout_constraintStart_toStartOf="@id/textRpm"
+                app:layout_constraintTop_toBottomOf="@id/textRpm" />
 
             <TextView
                 android:id="@+id/textFreq"
@@ -237,35 +241,36 @@
                 android:paddingBottom="2dp"
                 android:text="@string/freq"
                 android:textColor="@color/grey_text"
-                app:layout_constraintStart_toEndOf="@id/textRpm"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toTopOf="@id/textRpmValue"
                 app:layout_constraintEnd_toStartOf="@+id/rpmLogo"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/textRpmValue" />
+                app:layout_constraintStart_toEndOf="@id/textRpm"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textFreqVal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="8dp"
-                android:paddingTop="2dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="2dp"
                 android:text="N/A"
-                android:textStyle="bold"
                 android:textColor="@color/grey_text"
-                app:layout_constraintStart_toStartOf="@id/textFreq"
+                android:textSize="24dp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/textFreq"
-                app:layout_constraintTop_toBottomOf="@id/textFreq"/>
+                app:layout_constraintStart_toStartOf="@id/textFreq"
+                app:layout_constraintTop_toBottomOf="@id/textFreq" />
 
             <ImageView
                 android:id="@+id/rpmLogo"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/ic_speedometer"
-                app:tint="@color/color_for"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:tint="@color/color_for" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

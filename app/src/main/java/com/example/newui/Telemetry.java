@@ -47,7 +47,7 @@ public class Telemetry extends AppCompatActivity {
         float lvl = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_LVL,0f);
         float fuel = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_FUEL, 0f);
         float afr = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_AFR, 0f);
-        float volt = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_VOLT, 0f);
+//        float volt = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_VOLT, 0f);
         float rpm = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_RPM,0f);
         float freq = getIntent().getFloatExtra(MainActivity.EXTRA_DATA_FREQ, 0f);
 
@@ -58,44 +58,30 @@ public class Telemetry extends AppCompatActivity {
         displayRpm.setText(Float.toString(rpm));
         displayFreq.setText(Float.toString(freq));
 
-        handler = new Handler(Looper.getMainLooper()){
-
-            @Override
-            public void handleMessage(Message msg) {
-
-                String statusFuel = msg.obj.toString().replace("/n","");
-                displayFuel.setText(statusFuel);
-
-                String statusAdc = msg.obj.toString().replace("/n","");
-                displayLvl.setText(statusAdc);
-
-                String statusAfr = msg.obj.toString().replace("/n","");
-                displayAfr.setText(statusAfr);
-
-//                String statusVolt = msg.obj.toString().replace("/n","");
-//                displayVolt.setText(statusVolt);
-
-                String statusRpm = msg.obj.toString().replace("/n","");
-                displayRpm.setText(statusRpm);
-
-                String statusFreq = msg.obj.toString().replace("/n","");
-                displayFreq.setText(statusFreq);
-                }
-            };
-
-//        DataInputStream inputStream = null;
-//        try {
+//        handler = new Handler(Looper.getMainLooper()){
 //
-//            DataInputStream input = new DataInputStream(btSocket.getInputStream());
-//            float d = input.readFloat();
+//            @Override
+//            public void handleMessage(Message msg) {
 //
-//            System.out.println(d);
+//                String statusFuel = msg.obj.toString().replace("/n","");
+//                displayFuel.setText(statusFuel);
 //
+//                String statusAdc = msg.obj.toString().replace("/n","");
+//                displayLvl.setText(statusAdc);
 //
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
+//                String statusAfr = msg.obj.toString().replace("/n","");
+//                displayAfr.setText(statusAfr);
+//
+////                String statusVolt = msg.obj.toString().replace("/n","");
+////                displayVolt.setText(statusVolt);
+//
+//                String statusRpm = msg.obj.toString().replace("/n","");
+//                displayRpm.setText(statusRpm);
+//
+//                String statusFreq = msg.obj.toString().replace("/n","");
+//                displayFreq.setText(statusFreq);
+//                }
+//            };
 
         bottomNavigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

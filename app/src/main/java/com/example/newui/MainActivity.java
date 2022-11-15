@@ -44,14 +44,14 @@ public class MainActivity extends AppCompatActivity {
     static final String EXTRA_DATA_LVL = "extra_data_lvl";
     static final String EXTRA_DATA_FUEL = "extra_data_fuel";
     static final String EXTRA_DATA_AFR = "extra_data_afr";
-    static final String EXTRA_DATA_VOLT = "extra_data_volt";
+//    static final String EXTRA_DATA_VOLT = "extra_data_volt";
     static final String EXTRA_DATA_RPM = "extra_data_rpm";
     static final String EXTRA_DATA_FREQ = "extra_data_freq";
     
     private static float lvl = 0f;
     private static float fuel = 0f;
     private static float afr = 0f;
-    private static float volt = 0f;
+//    private static float volt = 0f;
     private static float rpm = 0f;
     private static float freq = 0f;
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra(MainActivity.EXTRA_DATA_LVL,lvl);
                         intent.putExtra(MainActivity.EXTRA_DATA_FUEL,fuel);
                         intent.putExtra(MainActivity.EXTRA_DATA_AFR,afr);
-                        intent.putExtra(MainActivity.EXTRA_DATA_VOLT,volt);
+//                        intent.putExtra(MainActivity.EXTRA_DATA_VOLT,volt);
                         intent.putExtra(MainActivity.EXTRA_DATA_RPM,rpm);
                         intent.putExtra(MainActivity.EXTRA_DATA_FREQ,freq);
 
@@ -147,14 +147,12 @@ public class MainActivity extends AppCompatActivity {
                         String part3 = parts[2];
                         String part4 = parts[3];
                         String part5 = parts[4];
-                        String part6 = parts[5];
 
                         lvl = Float.parseFloat(part1);
                         fuel = Float.parseFloat(part2);
                         afr = Float.parseFloat(part3);
-                        volt = Float.parseFloat(part4);
-                        rpm = Float.parseFloat(part5);
-                        freq= Float.parseFloat(part6);
+                        rpm = Float.parseFloat(part4);
+                        freq= Float.parseFloat(part5);
 
                         Log.i("string", statusText);
                         break;
