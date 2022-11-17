@@ -21,7 +21,7 @@ public class Telemetry extends AppCompatActivity {
 //private RecyclerView recyclerView;
 
     BottomNavigationView bottomNavigationMenu;
-    public static Handler handler;
+//    public static Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
