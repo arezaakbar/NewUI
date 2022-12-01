@@ -37,15 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private final static int CONNECTION_STATUS = 1;
     private final static int READ_MESSAGE = 2;
 
-    BottomNavigationView bottomNavigationMenu;
-
-    //Instansiasi data dari arduino
-//    static String EXTRA_DATA_LVL = "extra_data_lvl";
-//    static String EXTRA_DATA_FUEL = "extra_data_fuel";
-//    static String EXTRA_DATA_AFR = "extra_data_afr";
-//    static String EXTRA_DATA_RPM = "extra_data_rpm";
-//    static String EXTRA_DATA_FREQ = "extra_data_freq";
-    
     private static float adc;
     private static float fuel;
     private static float afr;
@@ -72,34 +63,6 @@ public class MainActivity extends AppCompatActivity {
         TextView displayRpm = findViewById(R.id.textRpmValue);
         TextView displayFreq = findViewById(R.id.textFreqValue);
 
-
-        //Instansiasi Bottom Navbar
-//        bottomNavigationMenu = findViewById(R.id.bottomNavigationMenu);
-//        bottomNavigationMenu.setSelectedItemId(R.id.menumode);
-//
-//        bottomNavigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//
-//                switch (item.getItemId()) {
-//                    case R.id.menumode:
-//                        return true;
-//                    case R.id.menuhistory:
-//                        Intent intent = new Intent(new Intent(getApplicationContext(), Telemetry.class));
-//                        intent.putExtra(MainActivity.EXTRA_DATA_LVL,lvl);
-//                        intent.putExtra(MainActivity.EXTRA_DATA_FUEL,fuel);
-//                        intent.putExtra(MainActivity.EXTRA_DATA_AFR,afr);
-//                        intent.putExtra(MainActivity.EXTRA_DATA_RPM,rpm);
-//                        intent.putExtra(MainActivity.EXTRA_DATA_FREQ,freq);
-//
-//                        startActivity(intent);
-//                        overridePendingTransition(0, 0);
-//                        return true;
-//                }
-//
-//                return false;
-//            }
-//        });
 
         //Connect Button
         connectButton.setOnClickListener(new View.OnClickListener() {
@@ -146,23 +109,23 @@ public class MainActivity extends AppCompatActivity {
                             String statusText = msg.obj.toString();
                             String[] parts = statusText.split(Pattern.quote("-"));
 
-                            String part1 = parts[0];
-                            String part2 = parts[1];
-                            String part3 = parts[2];
-                            String part4 = parts[3];
-                            String part5 = parts[4];
+                            String sadc = parts[0];
+//                            String sfuel = parts[1];
+//                            String safr = parts[2];
+                            String srpm = parts[3];
+                            String sfreq = parts[4];
 
-                            adc = Float.parseFloat(part1);
-                            fuel = Float.parseFloat(part2);
-                            afr = Float.parseFloat(part3);
-                            rpm = Float.parseFloat(part4);
-                            freq= Float.parseFloat(part5);
+//                            adc = Float.parseFloat(parts[0]);
+                            fuel = Float.parseFloat(parts[1]);
+                            afr = Float.parseFloat(parts[2]);
+//                            rpm = Float.parseFloat(parts[3]);
+//                            freq= Float.parseFloat(parts[4]);
 
-                            displayAdc.setText(Float.toString(adc));
+                            displayAdc.setText(sadc);
                             displayFuel.setText(Float.toString(fuel));
                             displayAfr.setText(Float.toString(afr));
-                            displayRpm.setText(Float.toString(rpm));
-                            displayFreq.setText(Float.toString(freq));
+                            displayRpm.setText(srpm);
+                            displayFreq.setText(sfreq);
 
                             Log.i("data", statusText);
                             break;
@@ -199,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 //            if (CONNECTION_STATUS == 1) {
                 String androidCmd = "s";
                 connectedThread.write(androidCmd);
-                displayCurrentMode.setText("SPORTY MODE");
+                displayCurrentMode.setText("SPORT MODE");
 //            } else {
 //                Toast.makeText(MainActivity.this,
 //                        "Bluetooth is not connected!", Toast.LENGTH_SHORT).show();
