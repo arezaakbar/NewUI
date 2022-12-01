@@ -10,13 +10,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,27 +33,24 @@ public class MainActivity extends AppCompatActivity {
     public static CreateConnectThread createConnectThread;
     public static ConnectedThread connectedThread;
 
+    //Bluetooth message status
     private final static int CONNECTION_STATUS = 1;
     private final static int READ_MESSAGE = 2;
 
     BottomNavigationView bottomNavigationMenu;
 
     //Instansiasi data dari arduino
-    static final String EXTRA_DATA_LVL = "extra_data_lvl";
-    static final String EXTRA_DATA_FUEL = "extra_data_fuel";
-    static final String EXTRA_DATA_AFR = "extra_data_afr";
-//    static final String EXTRA_DATA_VOLT = "extra_data_volt";
-    static final String EXTRA_DATA_RPM = "extra_data_rpm";
-    static final String EXTRA_DATA_FREQ = "extra_data_freq";
+//    static String EXTRA_DATA_LVL = "extra_data_lvl";
+//    static String EXTRA_DATA_FUEL = "extra_data_fuel";
+//    static String EXTRA_DATA_AFR = "extra_data_afr";
+//    static String EXTRA_DATA_RPM = "extra_data_rpm";
+//    static String EXTRA_DATA_FREQ = "extra_data_freq";
     
-    private static float lvl;
+    private static float adc;
     private static float fuel;
     private static float afr;
-//    private static float volt = 0f;
     private static float rpm;
     private static float freq;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,35 +66,40 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout sportButton = findViewById(R.id.sportButton);
         LinearLayout defaultButton = findViewById(R.id.defaultButton);
 
+        TextView displayFuel = findViewById(R.id.textFuelValue);
+        TextView displayAdc = findViewById(R.id.textAdcValue);
+        TextView displayAfr = findViewById(R.id.textAfrValue);
+        TextView displayRpm = findViewById(R.id.textRpmValue);
+        TextView displayFreq = findViewById(R.id.textFreqValue);
+
 
         //Instansiasi Bottom Navbar
-        bottomNavigationMenu = findViewById(R.id.bottomNavigationMenu);
-        bottomNavigationMenu.setSelectedItemId(R.id.menumode);
-
-        bottomNavigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId()) {
-                    case R.id.menumode:
-                        return true;
-                    case R.id.menuhistory:
-                        Intent intent = new Intent(new Intent(getApplicationContext(), Telemetry.class));
-                        intent.putExtra(MainActivity.EXTRA_DATA_LVL,lvl);
-                        intent.putExtra(MainActivity.EXTRA_DATA_FUEL,fuel);
-                        intent.putExtra(MainActivity.EXTRA_DATA_AFR,afr);
-//                        intent.putExtra(MainActivity.EXTRA_DATA_VOLT,volt);
-                        intent.putExtra(MainActivity.EXTRA_DATA_RPM,rpm);
-                        intent.putExtra(MainActivity.EXTRA_DATA_FREQ,freq);
-
-                        startActivity(intent);
-                        overridePendingTransition(0, 0);
-                        return true;
-                }
-
-                return false;
-            }
-        });
+//        bottomNavigationMenu = findViewById(R.id.bottomNavigationMenu);
+//        bottomNavigationMenu.setSelectedItemId(R.id.menumode);
+//
+//        bottomNavigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//
+//                switch (item.getItemId()) {
+//                    case R.id.menumode:
+//                        return true;
+//                    case R.id.menuhistory:
+//                        Intent intent = new Intent(new Intent(getApplicationContext(), Telemetry.class));
+//                        intent.putExtra(MainActivity.EXTRA_DATA_LVL,lvl);
+//                        intent.putExtra(MainActivity.EXTRA_DATA_FUEL,fuel);
+//                        intent.putExtra(MainActivity.EXTRA_DATA_AFR,afr);
+//                        intent.putExtra(MainActivity.EXTRA_DATA_RPM,rpm);
+//                        intent.putExtra(MainActivity.EXTRA_DATA_FREQ,freq);
+//
+//                        startActivity(intent);
+//                        overridePendingTransition(0, 0);
+//                        return true;
+//                }
+//
+//                return false;
+//            }
+//        });
 
         //Connect Button
         connectButton.setOnClickListener(new View.OnClickListener() {
@@ -112,17 +112,20 @@ public class MainActivity extends AppCompatActivity {
 
         //Get informasi Device Address
         deviceAddress = getIntent().getStringExtra("deviceAddress");
+
         //Ketika Device Address telah ditemukan
         if (deviceAddress != null) {
-            textBluetoothStatus.setText("Connecting");
+            textBluetoothStatus.setText("Connecting...");
+            //Ketika "deviceAddress" ditemukan, kode akan membuat connection thread untuk menyambungkan perangkat android ke bluetooth module
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             createConnectThread = new CreateConnectThread(bluetoothAdapter, deviceAddress);
             createConnectThread.start();
         }
 
-        //Handler
+        //Handler untuk mengupdate UI ketika Thread mengeluarkan output baru dan mengoper value ke Main Thread
         handler = new Handler(Looper.getMainLooper()) {
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
@@ -137,25 +140,33 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
 
-                    //apabila message berisi data dari Arduino
+                    //Parsing arduino data
                     case READ_MESSAGE:
-                        String statusText = msg.obj.toString();
-                        String[] parts = statusText.split(Pattern.quote("-"));
+//                        for (;;) {
+                            String statusText = msg.obj.toString();
+                            String[] parts = statusText.split(Pattern.quote("-"));
 
-                        String part1 = parts[0];
-                        String part2 = parts[1];
-                        String part3 = parts[2];
-                        String part4 = parts[3];
-                        String part5 = parts[4];
+                            String part1 = parts[0];
+                            String part2 = parts[1];
+                            String part3 = parts[2];
+                            String part4 = parts[3];
+                            String part5 = parts[4];
 
-                        lvl = Float.parseFloat(part1);
-                        fuel = Float.parseFloat(part2);
-                        afr = Float.parseFloat(part3);
-                        rpm = Float.parseFloat(part4);
-                        freq= Float.parseFloat(part5);
+                            adc = Float.parseFloat(part1);
+                            fuel = Float.parseFloat(part2);
+                            afr = Float.parseFloat(part3);
+                            rpm = Float.parseFloat(part4);
+                            freq= Float.parseFloat(part5);
 
-                        Log.i("data", statusText);
-                        break;
+                            displayAdc.setText(Float.toString(adc));
+                            displayFuel.setText(Float.toString(fuel));
+                            displayAfr.setText(Float.toString(afr));
+                            displayRpm.setText(Float.toString(rpm));
+                            displayFreq.setText(Float.toString(freq));
+
+                            Log.i("data", statusText);
+                            break;
+//                        }
                 }
             }
         };
@@ -173,40 +184,39 @@ public class MainActivity extends AppCompatActivity {
 
         //Eco Button
         ecoButton.setOnClickListener(view -> {
-            String androidCmd = "w";
-            connectedThread.write(androidCmd);
-            displayCurrentMode.setText("ECO MODE");
+//            if (CONNECTION_STATUS == 1) {
+                String androidCmd = "e";
+                connectedThread.write(androidCmd);
+                displayCurrentMode.setText("ECO MODE");
+//            } else {
+//                Toast.makeText(MainActivity.this,
+//                        "Bluetooth is not connected!", Toast.LENGTH_SHORT).show();
+//            }
         });
 
         //Sporty Button
         sportButton.setOnClickListener(view -> {
-            String androidCmd = "s";
-            connectedThread.write(androidCmd);
-            displayCurrentMode.setText("SPORTY MODE");
+//            if (CONNECTION_STATUS == 1) {
+                String androidCmd = "s";
+                connectedThread.write(androidCmd);
+                displayCurrentMode.setText("SPORTY MODE");
+//            } else {
+//                Toast.makeText(MainActivity.this,
+//                        "Bluetooth is not connected!", Toast.LENGTH_SHORT).show();
+//            }
         });
 
         //Default Button
         defaultButton.setOnClickListener(view -> {
-            String androidCmd = "d";
-            connectedThread.write(androidCmd);
-            displayCurrentMode.setText("SPORTY MODE");
+//            if (CONNECTION_STATUS == 1) {
+                String androidCmd = "d";
+                connectedThread.write(androidCmd);
+                displayCurrentMode.setText("DEFAULT MODE");
+//            } else {
+//                Toast.makeText(MainActivity.this,
+//                        "Bluetooth is not connected!", Toast.LENGTH_SHORT).show();
+//            }
         });
-//        ecoButton.setOnClickListener(v -> {
-//            //log ecoButton
-//            Log.i("Eco Button State", "Eco Mode Terpilih");
-//        });
-//
-//        //Function sportButton
-//        sportButton.setOnClickListener(v -> {
-//            //log sportButton
-//            Log.i("Sporty Button State", "Sporty Mode Terpilih");
-//        });
-//
-//        //Function sportButton
-//        defaultButton.setOnClickListener(v -> {
-//            //log sportButton
-//            Log.i("Default Button State", "Default Mode Terpilih");
-//        });
     }
 
     //Establishing Bluetooth Connection Thread
@@ -293,7 +303,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        //Mengirim androidcmd ke STM32
         public void write(String input) {
+            //Mengubah String menjadi bytes
             byte[] bytes = input.getBytes();
             try {
                 mmOutStream.write(bytes);

@@ -1,11 +1,15 @@
 package com.example.newui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -25,10 +29,10 @@ public class SelectDeviceActivity extends AppCompatActivity {
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         //Fetching list adapter dari cache
-        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+        @SuppressLint("MissingPermission") Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
         List<Object> deviceList = new ArrayList<>();
         for (BluetoothDevice device: pairedDevices){
-            String deviceName = device.getName();
+            @SuppressLint("MissingPermission") String deviceName = device.getName();
             String deviceHardwareAddress = device.getAddress();
             DeviceInfoModel deviceInfoModel = new DeviceInfoModel(deviceName, deviceHardwareAddress);
             deviceList.add(deviceInfoModel);

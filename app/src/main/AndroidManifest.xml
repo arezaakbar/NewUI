@@ -18,7 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewUI">
         <activity android:name=".SelectDeviceActivity"></activity>
-        <activity android:name=".Telemetry"></activity>
         <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
